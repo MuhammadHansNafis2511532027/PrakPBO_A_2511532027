@@ -1,10 +1,12 @@
 package pertemuan_praktikum_1;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
+		ArrayList<Rekening> daftarAkun = new ArrayList<>();
 		Rekening akunAktif = null; // Objek belum diinisialisasi (null)
 		boolean isRunning = true;
 		
@@ -16,6 +18,7 @@ public class Main {
 			System.out.println("2. Setor Tunai");
 			System.out.println("3. Tarik Tunai");
 			System.out.println("4. Cek Informasi Keuangan");
+			System.out.println("6. Ganti Akun");
 			System.out.println("0. Keluar");
 			System.out.println("Pilih menu: ");
 			
@@ -32,7 +35,10 @@ public class Main {
 				double saldo = input.nextDouble();
 				
 				// Instalasi Object / Menjalankan Constructor
-				akunAktif = new Rekening(no, nama, saldo);
+				Rekening rekeningBaru = new Rekening(no, nama, saldo);
+				daftarAkun.add(rekeningBaru);
+				akunAktif = rekeningBaru;
+				System.out.println("Rekenoing berhasil ditambahkan");
 				break;
 				
 			case 2:
@@ -46,7 +52,13 @@ public class Main {
 				break;
 				
 			case 3:
-				System.out.println("Fitur ini akan kerjakan sebagai Tugas Mandiri.");
+				 if (akunAktif == null) {
+					 System.out.println("Error: Anda belum membuka rekening!");
+				 } else {
+					 System.out.print("Masukkan nominal tarik: ");
+					 double tarik = input.nextDouble();
+					 akunAktif.tarikTunai(tarik);
+				 }
 				break;
 				
 			case 4:
@@ -54,6 +66,27 @@ public class Main {
 					System.out.println("Error: Anda belum membuka rekening!");
 				} else {
 					akunAktif.cekInformasi();
+				}
+				break;
+				
+			case 5:
+				if (daftarAkun.isEmpty()) {
+					System.out.println("Error: Belum ada rekening yang tersedia!");
+				} else {
+					System.out.print("Masukkan No Rekening yang ingin dipilih: ");
+					String nomorCari = input.nextLine();
+					boolean ditemukan = false;
+					for (Rekening rekening : daftarAkun) {
+						if (rekening.nomorRekening.equals(nomorCari)) {
+							akunAktif = rekening;
+							ditemukan = true;
+							System.out.println("Berhasil berganti ke rekening " + rekening.namaPemilik);
+							break;
+						}
+					}
+					if (!ditemukan) {
+						System.out.println("Rekening tidak ditemukan!");
+					}
 				}
 				break;
 				
