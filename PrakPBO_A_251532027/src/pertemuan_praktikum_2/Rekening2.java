@@ -30,7 +30,7 @@ public class Rekening2 {
 	}
 	
 	public void setorTunai(double nominal) {
-		if (nominal > 10000) {
+		if (nominal >= 10000) {
 			saldo += nominal;
 			// Merekam riwayat (Pembuatan objek Transaksi di dalam method)
 			String idTrx = "TRX-S-" + System.currentTimeMillis();
@@ -50,8 +50,23 @@ public class Rekening2 {
 				System.out.println("Transaksi Gagal : Saldo tidak mencukupi. Saldo Anda: Rp" + saldo);
 			} else {
 				saldo -= nominal;
+				String idTrx = "TRX-T-" + System.currentTimeMillis();
+				Transaksi trxBaru = new Transaksi(idTrx, "Debit", nominal);
+				riwayatTransaksi.add(trxBaru);
 				System.out.println("Tarik tunai Rp" + nominal + " berhasil. Saldo saat ini: Rp" + saldo);
 			}
+	}
+	
+	public void cetakMutasi() {
+		System.out.println("--- MUTASI REKENING ---");
+		if (riwayatTransaksi.isEmpty()) {
+			System.out.println("Belum ada transaksi pada rekening ini");
+		} else {
+			for (Transaksi trx : riwayatTransaksi) {
+				trx.cetakDetail();
+			}
+		}
+		System.out.println("-----------------------");
 	}
 	
 	public void cekInformasi() {
