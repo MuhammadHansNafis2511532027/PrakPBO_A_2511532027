@@ -12,7 +12,7 @@ public class RekeningTabungan extends Rekening4{
 		this.sukuBunga = sukuBunga;
 	}
 	
-	public void tambahanBungaAkhirBulan() {
+	public void tambahBungaAkhirBulan() {
 		// Menghitung Bunga
 		// Mengapa bisa mengakses saldo secara langsung dari class RekeningTabungan ?
 		double nominalBunga = saldo * (sukuBunga / 100);
