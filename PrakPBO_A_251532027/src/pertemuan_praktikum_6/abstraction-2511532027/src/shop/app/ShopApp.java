@@ -53,7 +53,7 @@ public class ShopApp {
         System.out.println("\n== Refund e-book ==");
         System.out.println("Refund e-wallet berhasil? " + checkout.refund(wallet, ebook.getFinalPrice()));
         System.out.println("Saldo setelah refund: Rp" + wallet.getBalance());
-        // checkout.refund(transfer, 1_000); // compile error: BankTransferPayment is not RefundablePayment
+        // checkout.refund(new BankTransferPayment("Bank Nagari"), 1_000); // error: incompatible types: BankTransferPayment cannot be converted to RefundablePayment
 
         Address address = new Address("Jl. Moh Hatta No. 10", "Padang", "25121");
         Order order = new Order("ORD-0001", address);
